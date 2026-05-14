@@ -33,6 +33,7 @@ int main( void){
   DDRD &=~(1<<PD2 );//defined the digital pin 2 dreaction of the  as inpu put
   DDRD |= (1 << PD3);//defined the digital pin 3 dreaction of the  as out put
   DDRD |= (1 << PD4);//defined the digital pin 3 dreaction of the  as out put
+  DDRD |= (1 << PD5);
   bool onLed=false;
   int alarmTime = 10000; // milliseconds
 
@@ -72,6 +73,30 @@ int main( void){
     else{
       PORTD &= ~(1 << PD4);//red led off when detected 
     }
+
+
+
+
+
+     if ( PIND & (1<<PD2)){// check the actual (current value of  the pd2)
+      PORTD |= (1 << PD5);//buzzer will on 
+      
+     
+
+      
+      
+     
+
+
+
+    }
+    else{
+      PORTD &= ~(1 << PD5);//buzzer will off
+     
+      
+
+    }
+    
   }
 
 
