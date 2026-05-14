@@ -2,6 +2,8 @@
 
 #include <avr/io.h>
 #include <util/delay.h>
+#include<stdbool.h>
+
 void UART_init()
 {
     UBRR0 = 103;
@@ -28,26 +30,45 @@ void UART_sendString(char *str)
 }
 int main( void){
   UART_init();
-  DDRB &=~(1<<PD2 );//defined the digital pin 2 dreaction of the  as inpu put
-  DDRB |= (1 << PB3);//defined the digital pin 3 dreaction of the  as out put
-  DDRB |= (1 << PB4);//defined the digital pin 3 dreaction of the  as out put
+  DDRD &=~(1<<PD2 );//defined the digital pin 2 dreaction of the  as inpu put
+  DDRD |= (1 << PD3);//defined the digital pin 3 dreaction of the  as out put
+  DDRD |= (1 << PD4);//defined the digital pin 3 dreaction of the  as out put
+  bool onLed=false;
 
 
   while(1)//continuously working 
   {
+    //this runs continously 
+    PORTD |= (1 << PD3);//green led on when detected 
+    _delay_ms(1000);
     if ( PIND & (1<<PD2)){// check the actual (current value of  the pd2)
       UART_sendString("detected live  objecte\r\n");
-      _delay_ms(1000);
-      
+      onLed=true;
 
-      ///
+
+      
+      
+     
 
 
 
     }
     else{
       UART_sendString("not detected live  objecte\r\n");
-      _delay_ms(1000);
+      onLed=false;
+
+      
+
+    }
+    
+    PORTD &= ~(1 << PD3);//green led on when detected 
+    _delay_ms(1000);
+
+    if (onLed){
+      PORTD |= (1 << PD4);//red led on when detected 
+    }
+    else{
+      PORTD &= ~(1 << PD4);//red led off when detected 
     }
   }
 
