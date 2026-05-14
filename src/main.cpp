@@ -34,7 +34,7 @@ int main( void){
   DDRD |= (1 << PD3);//defined the digital pin 3 dreaction of the  as out put
   DDRD |= (1 << PD4);//defined the digital pin 3 dreaction of the  as out put
   bool onLed=false;
-  int alarmTime = 5000; // milliseconds
+  int alarmTime = 10000; // milliseconds
 
 
   while(1)//continuously working 
